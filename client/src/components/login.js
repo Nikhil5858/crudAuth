@@ -31,7 +31,7 @@ function Login() {
       if (response.ok) {
         localStorage.setItem("token", result.token); 
         alert("Login Successful!");
-        navigate("/project");
+        navigate("/");
       } else {
         alert(result.message || "Login failed!");
       }

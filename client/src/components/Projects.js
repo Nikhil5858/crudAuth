@@ -264,24 +264,36 @@ function Projects() {
 
             <div className="row mt-4">
                 {projects.map((project) => (
-                    <div className="col-md-4 p-3" key={project._id}>
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{project.title}</h5>
-                                <p className="card-text">{project.description}</p>
-                                <p className="card-text">Budget: ₹ {project.budget}</p>
-                                <p className="card-text">Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
-                                <p className="card-text">Skills Required: {project.skillsRequired.join(', ')}</p>
-                                <p className="card-text">Status: {project.status}</p>
-                                <button className="btn btn-warning me-3" onClick={() => setEditProject(project)}>
+                    <div className="col-md-6 p-3">
+                    <div className="card shadow-sm">
+                        <div className="card-body">
+                            <h5 className="card-title">{project.title}</h5>
+                            <p className="card-text text-muted">
+                                Budget: <strong>₹ {project.budget}</strong>
+                            </p>
+                            <p className="card-text">Description : {project.description}</p>
+                            <p className="card-text">
+                                Deadline: <strong>{new Date(project.deadline).toLocaleDateString()}</strong>
+                            </p>
+                            <p className="card-text">
+                                Skills Required: <span className="text-info">{project.skillsRequired.join(", ")}</span>
+                            </p>
+                            <p className="card-text">
+                                Status: <span className={`badge ${project.status === "Open" ? "bg-success" : "bg-secondary"}`}>
+                                    {project.status}
+                                </span>
+                            </p>
+                            <div className="d-flex justify-content-between align-items-center">
+                                <button className="btn btn-warning btn-sm" onClick={() => setEditProject(project)}>
                                     Edit
                                 </button>
-                                <button className="btn btn-danger" onClick={() => deleteProject(project._id)}>
+                                <button className="btn btn-danger btn-sm" onClick={() => deleteProject(project._id)}>
                                     Delete
                                 </button>
                             </div>
                         </div>
                     </div>
+                </div>
                 ))}
             </div>
         </div>
