@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import {jwtDecode} from "jwt-decode";
 
 function Projects() {
     const [projects, setProjects] = useState([]);
     const [editProject, setEditProject] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [userRole, setUserRole] = useState('');
 
     const [newProject, setNewProject] = useState({
         title: '',
@@ -23,13 +25,25 @@ function Projects() {
     };
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decoded = jwtDecode(token);
+                setUserRole(decoded.role);
+            } catch (error) {
+                console.error("Invalid token:", error);
+                localStorage.removeItem('token');
+            }
+        }
         fetchData();
     }, []);
+    
 
     const handleInputChange = (e) => {
+        const { name, value } = e.target;
         setNewProject({
             ...newProject,
-            [e.target.name]: e.target.value
+            [name]: name === "skillsRequired" ? value.split(",") : value 
         });
     };
     
@@ -43,11 +57,21 @@ function Projects() {
 
     const addProject = async () => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch("http://localhost:5000/project/create", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 body: JSON.stringify(newProject),
             });
+    
+            if (response.status === 401) {
+                console.error("check your token");
+                return;
+            }
+    
             if (response.ok) {
                 fetchData();
                 setNewProject({
@@ -64,6 +88,7 @@ function Projects() {
             console.error("Error adding project:", error);
         }
     };
+    
 
     const updateProject = async () => {
         try {
@@ -98,9 +123,11 @@ function Projects() {
     return (
         <div className="container">
 
-            <button className="btn btn-primary mt-3" onClick={() => setShowModal(true)}>
-                Add Project
-            </button>
+            {userRole === "admin" && (
+                <button className="btn btn-primary mt-3" onClick={() => setShowModal(true)}>
+                    Add Project
+                </button>
+            )}
 
             {showModal && (
                 <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
@@ -279,7 +306,8 @@ function Projects() {
                                 Skills Required: {project.skillsRequired.join(", ")}
                             </p>
                             <p className="card-text">
-                                Status: <span className={`badge ${project.status === "open" ? "bg-success" : "bg-secondary"}`}>
+                                Status: 
+                                <span className={`badge ${project.status === "open" ? "bg-success" : project.status === "inprogress" ? "bg-success" : "bg-danger"}`}>
                                     {project.status}
                                 </span>
                             </p>
