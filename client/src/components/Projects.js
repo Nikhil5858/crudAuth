@@ -276,10 +276,10 @@ function Projects() {
                                 Deadline: <strong>{new Date(project.deadline).toLocaleDateString()}</strong>
                             </p>
                             <p className="card-text">
-                                Skills Required: <span className="text-info">{project.skillsRequired.join(", ")}</span>
+                                Skills Required: {project.skillsRequired.join(", ")}
                             </p>
                             <p className="card-text">
-                                Status: <span className={`badge ${project.status === "Open" ? "bg-success" : "bg-secondary"}`}>
+                                Status: <span className={`badge ${project.status === "open" ? "bg-success" : "bg-secondary"}`}>
                                     {project.status}
                                 </span>
                             </p>
