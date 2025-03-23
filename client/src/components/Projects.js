@@ -121,7 +121,7 @@ function Projects() {
     };
 
     return (
-        <div className="container">
+        <div className="container py-3 mt-5">
 
             {userRole === "admin" && (
                 <button className="btn btn-primary mt-3" onClick={() => setShowModal(true)}>
