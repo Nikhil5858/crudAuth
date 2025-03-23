@@ -310,14 +310,17 @@ function Projects() {
                                     {project.status}
                                 </span>
                             </p>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <button className="btn btn-warning btn-sm" onClick={() => setEditProject(project)}>
-                                <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button className="btn btn-danger btn-sm" onClick={() => deleteProject(project._id)}>
-                                <i className="bi bi-trash3"></i>
-                                </button>
-                            </div>
+                            {
+                            userRole === 'admin' && (
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <button className="btn btn-warning btn-sm" onClick={() => setEditProject(project)}>
+                                    <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button className="btn btn-danger btn-sm" onClick={() => deleteProject(project._id)}>
+                                    <i className="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

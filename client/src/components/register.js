@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate ,Link} from 'react-router-dom'
 
 function Register() {
   const [Register, setregisterFormData] = useState({
@@ -37,25 +37,69 @@ function Register() {
 
   return (
     <>
-      <div className='container mt-5'>
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <input type="email" className="form-control" id="email" name="email" value={Register.email} onChange={handelInputChange} required aria-describedby="emailHelp" placeholder="Enter email" />
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-          <div className="form-group mt-3">
-            <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" id="name" name="name" value={Register.name} onChange={handelInputChange} required placeholder="Enter Name" />
-          </div>
+      <div className="registermain">
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="card p-4 shadow" style={{ maxWidth: "500px", width: "100%" }}>
+          <h2 className="card-title text-center mb-4">Sign Up</h2>
+          <form onSubmit={onSubmit}>
+            <div className="form-floating mb-3">
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                value={Register.email}
+                onChange={handelInputChange}
+                required
+                placeholder="name@example.com"
+              />
+              <label htmlFor="email">Email address</label>
+              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
 
-          <div className="form-group mt-3">
-            <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" id="password" name="password" value={Register.password} required onChange={handelInputChange} placeholder="Password" />
-          </div>
-          <button type="submit" className="btn btn-primary mt-3">Submit</button>
-        </form>
+            <div className="form-floating mb-3">
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                value={Register.name}
+                onChange={handelInputChange}
+                required
+                placeholder="Enter Name"
+              />
+              <label htmlFor="name">Name</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                value={Register.password}
+                onChange={handelInputChange}
+                required
+                placeholder="Password"
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+
+            <div className="d-grid mb-3">
+              <button type="submit" className="btn btn-dark">
+                Sign Up
+              </button>
+            </div>
+
+            <div className="text-center">
+              <p className="login-footer">
+                Already have an account? <Link to="/login">Sign In</Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
+    </div>
     </>
   )
 }
