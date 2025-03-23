@@ -294,7 +294,7 @@ function Projects() {
                     <div className="col-md-6 p-3">
                     <div className="card shadow-sm">
                         <div className="card-body">
-                            <h5 className="card-title">{project.title}</h5>
+                            <h5 className="card-title">Project Name : {project.title}</h5>
                             <p className="card-text text-muted">
                                 Budget: <strong>₹ {project.budget}</strong>
                             </p>
@@ -306,17 +306,16 @@ function Projects() {
                                 Skills Required: {project.skillsRequired.join(", ")}
                             </p>
                             <p className="card-text">
-                                Status: 
-                                <span className={`badge ${project.status === "open" ? "bg-success" : project.status === "inprogress" ? "bg-success" : "bg-danger"}`}>
+                                Status:  <span className={`badge ${project.status === "open" ? "bg-success" : project.status === "inprogress" ? "bg-success" : "bg-danger"}`}>
                                     {project.status}
                                 </span>
                             </p>
                             <div className="d-flex justify-content-between align-items-center">
                                 <button className="btn btn-warning btn-sm" onClick={() => setEditProject(project)}>
-                                    Edit
+                                <i class="bi bi-pencil-square"></i>
                                 </button>
                                 <button className="btn btn-danger btn-sm" onClick={() => deleteProject(project._id)}>
-                                    Delete
+                                <i className="bi bi-trash3"></i>
                                 </button>
                             </div>
                         </div>

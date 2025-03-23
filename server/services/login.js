@@ -15,7 +15,7 @@ const login = async (email, password) => {
         const token = generateToken(user);
         return token;
     } catch (error) {
-        throw new Error("Invalid login service: " + error.message);
+        throw new Error("Invalid " + error.message);
     }
 };
 
